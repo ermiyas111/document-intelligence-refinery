@@ -34,7 +34,26 @@ def profile_document(pdf_path):
         )
         return profile
 
+import json
+
 if __name__ == "__main__":
     pdf_path = os.path.join("resource", "sample.pdf")
     profile = profile_document(pdf_path)
-    print(profile.json(indent=2))
+    output_dir = os.path.join(".refinery", "Profiles")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "DocumentProfile.json")
+    # Load existing list or start new
+    if os.path.exists(output_path):
+        with open(output_path, "r", encoding="utf-8") as f:
+            try:
+                profiles = json.load(f)
+                if not isinstance(profiles, list):
+                    profiles = [profiles]
+            except Exception:
+                profiles = []
+    else:
+        profiles = []
+    profiles.append(profile.model_dump())
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(profiles, f, indent=2)
+    print(f"Profile saved to {output_path}")
