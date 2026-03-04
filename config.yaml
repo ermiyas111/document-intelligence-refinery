@@ -1,0 +1,7 @@
+# Document Intelligence Refinery Configuration
+budget_cap_usd: 2.00
+confidence_thresholds:
+  fast_text: 0.6
+  layout: 0.7
+  vision: 0.8
+model_price_per_token: 0.00002
