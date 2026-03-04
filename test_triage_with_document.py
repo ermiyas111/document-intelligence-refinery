@@ -53,7 +53,9 @@ if __name__ == "__main__":
                 profiles = []
     else:
         profiles = []
-    profiles.append(profile.model_dump())
+    profile_dict = profile.model_dump()
+    profile_dict["file_name"] = os.path.basename(pdf_path)
+    profiles.append(profile_dict)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(profiles, f, indent=2)
     print(f"Profile saved to {output_path}")
