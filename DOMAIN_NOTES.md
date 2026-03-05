@@ -44,21 +44,37 @@ graph TD
 - Structure collapse and provenance blindness remain risks for scanned and mixed-origin documents.
 
 ## Pipeline Diagram (Implemented)
-```mermaid
 sequenceDiagram
     participant User
-    participant TriageAgent
-    participant ExtractionLayer
-    participant ChunkingEngine
-    participant ProvenanceBuilder
-    participant PageIndexBuilder
-    User->>TriageAgent: Submit document
-    TriageAgent->>ExtractionLayer: Profile & route (origin/layout/confidence)
-    ExtractionLayer->>ChunkingEngine: Extract structure/content
-    ChunkingEngine->>ProvenanceBuilder: Chunk and attach metadata
-    ProvenanceBuilder->>PageIndexBuilder: Build navigation index
-    PageIndexBuilder->>User: Provide queryable output
-```
+    participant Triage as Triage Agent
+    participant Router as Extraction Router
+    participant Engine as Extraction Engine (A/B/C)
+    participant Store as .refinery/ (Ledger & Profiles)
+    participant LDU as Semantic Chunking (LDU)
+    participant Index as PageIndex & Provenance
+
+    User->>Triage: Submit Document
+    Note over Triage: Analyze Density, Fonts, & Images
+    Triage->>Store: Save DocumentProfile (JSON)
+    Triage->>Router: Hand off Profile + Doc
+
+    rect rgb(240, 240, 240)
+        Note right of Router: Escalation Guard Loop
+        Router->>Engine: Attempt Strategy A (FastText)
+        Engine-->>Router: Low Confidence / Error
+        Router->>Store: Log Failure to Ledger
+        Router->>Engine: Escalate to Strategy B/C
+        Engine-->>Router: High Confidence Success
+    end
+
+    Router->>Store: Update Ledger (Final Strategy/Cost)
+    Router->>LDU: ExtractedDocument (Normalized)
+    
+    Note over LDU: Apply "Chunking Constitution" (YAML)
+    LDU->>Index: Map LDUs to Spatial Coordinates
+    
+    Index->>Index: Build Recursive PageIndex Tree
+    Index-->>User: Structured Knowledge + Provenance
 
 ---
 
