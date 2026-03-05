@@ -2,23 +2,39 @@
 
 ## Strategy Decision Tree (Actual Implementation)
 
-```mermaid
 graph TD
-    A[Start: Document Ingestion] --> B{Origin Type Detection}
-    B -->|Digital PDF| C[Assess Layout Complexity]
-    B -->|Scanned Image| F[VisionExtractor]
-    B -->|Mixed| G[Page-wise Assessment]
-    C -->|Single Column| D[FastTextExtractor]
-    C -->|Multi-Column/Table-Heavy| E[LayoutExtractor]
-    G -->|Digital Page| D
-    G -->|Image Page| F
-    D --> H{Confidence Gate}
-    E --> H
-    H -->|< gate_critical| F
-    H -->|< gate_low| E
-    H -->|>= gate_low| I[Chunking]
-    F --> I
-```
+    A[Start: Document Ingestion] --> B{Triage Agent}
+    
+    %% Classification Branch
+    B -->|Analyze Metadata/Density| C{Origin Type?}
+    
+    C -->|Native Digital| D[Assess Layout Complexity]
+    C -->|Scanned/Image| E[VisionExtractor Strategy C]
+    C -->|Mixed| F[Split Pages]
+    
+    %% Digital Path
+    D -->|Simple/Single Col| G[FastTextExtractor Strategy A]
+    D -->|Complex/Tables| H[LayoutExtractor Strategy B]
+    
+    %% Mixed Path
+    F -->|Digital Pages| D
+    F -->|Image Pages| E
+    
+    %% The Escalation Guard (Confidence Gates)
+    G --> G_Gate{Confidence?}
+    G_Gate -->|>= gate_low| J[Semantic Chunking LDU]
+    G_Gate -->|< gate_low| H
+    
+    H --> H_Gate{Confidence?}
+    H_Gate -->|>= gate_critical| J
+    H_Gate -->|< gate_critical| K{Budget Guard}
+    
+    %% Final Escalation
+    K -->|Under Cap| E
+    K -->|Over Cap| L[Fail & Log to Ledger]
+    
+    E --> J
+    J --> M[PageIndex Builder]
 
 ## Observed Failure Modes (From Corpus)
 - Most documents are classified as `scanned_image` or `mixed` with very low character density (<< 0.12), triggering VisionExtractor or escalation.
