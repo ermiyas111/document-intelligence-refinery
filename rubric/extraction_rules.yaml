@@ -1,0 +1,21 @@
+triage_thresholds:
+  min_character_density: 0.12
+  scanned_image_trigger: 0.35  # 35% image area triggers OCR
+
+confidence_gates:
+  gate_low: 0.85  # escalate from FastText to LayoutExtractor
+  gate_critical: 0.40  # escalate to VisionExtractor
+
+chunking:
+  target_chunk_size_tokens: 512
+  context_overlap: 64
+  break_points:
+    - Header
+    - Table
+    - PageBreak
+
+budgetary_guardrails:
+  max_cost_per_doc_usd: 0.50
+  model_pricing:
+    gpt-4o: 0.005  # $/1k tokens
+    gemini-pro-vision: 0.003

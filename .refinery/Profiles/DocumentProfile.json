@@ -1,0 +1,110 @@
+[
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "2013-E.C-Audit-finding-information.pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "2018_Audited_Financial_Statement_Report.pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "2019_Audited_Financial_Statement_Report.pdf"
+  },
+  {
+    "origin_type": "mixed",
+    "character_density": 0.003382798117477721,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": "financial",
+    "extraction_confidence": null,
+    "file_name": "Annual_Report_JUNE-2017.pdf"
+  },
+  {
+    "origin_type": "mixed",
+    "character_density": 0.003727193812030788,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": "financial",
+    "extraction_confidence": null,
+    "file_name": "Annual_Report_JUNE-2018.pdf"
+  },
+  {
+    "origin_type": "mixed",
+    "character_density": 0.0019038448394888838,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "Annual_Report_JUNE-2019.pdf"
+  },
+  {
+    "origin_type": "mixed",
+    "character_density": 0.003302222459508953,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": "financial",
+    "extraction_confidence": null,
+    "file_name": "CBE Annual Report 2006-7 .pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "CBE Annual Report 2008-9 .pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "CBE Annual Report 2009-10.pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "EthSwitch-Annual-Report-2019.pdf"
+  },
+  {
+    "origin_type": "scanned_image",
+    "character_density": 0.0,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": null,
+    "extraction_confidence": null,
+    "file_name": "Ethswitch-Annual-report-2020.2021_.pdf"
+  },
+  {
+    "origin_type": "mixed",
+    "character_density": 0.0034899255861035247,
+    "image_ratio": 0.0,
+    "layout_complexity": "single_column",
+    "domain_hint": "financial",
+    "extraction_confidence": null,
+    "file_name": "tax_expenditure_ethiopia_2021_22.pdf"
+  }
+]
