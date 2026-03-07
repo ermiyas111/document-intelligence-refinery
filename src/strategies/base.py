@@ -5,19 +5,18 @@ from typing import Any
 from pydantic import BaseModel
 from typing import Optional
 
-class ExtractedDocument(BaseModel):
-    doc_id: Optional[str] = None
-    text: Optional[str] = None
-    tables: Optional[list] = None
-    headers: Optional[list] = None
-    paragraphs: Optional[list] = None
-    confidence: Optional[float] = None
-    cost_estimate: Optional[float] = None
-    processing_time_ms: Optional[int] = None
-    escalation_triggered: Optional[bool] = None
+
+class ExtractionResult(BaseModel):
+    text: str = ""
+    tables: list = []
+    headers: list = []
+    paragraphs: list = []
+    confidence: float = 0.0
+    cost_estimate: float = 0.0
+    processing_time_ms: int = 0
+    is_escalated: bool = False
 
 class BaseExtractor(ABC):
     @abstractmethod
-    def extract(self, path: str) -> ExtractedDocument:
-        """Extract structured data from the document at the given path."""
+    def process_page(self, page: Any) -> ExtractionResult:
         pass

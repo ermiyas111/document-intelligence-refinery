@@ -1,3 +1,11 @@
+## Confidence Thresholds & Escalation Justification
+
+The confidence thresholds (gate_low, gate_critical) are set based on empirical analysis of the document corpus and the need to minimize false positives in extraction:
+
+- **gate_low (0.85):** Chosen to ensure only high-confidence, text-rich pages are processed by FastTextExtractor. Pages below this threshold are likely to be scanned or structurally complex, requiring escalation.
+- **gate_critical (0.40):** Pages with confidence below this are almost always unreadable by local tools and must be escalated to VisionExtractor for robust, multimodal extraction.
+
+These values are dynamically loaded from `rubric/extraction_rules.yaml` and can be tuned as more documents are processed. The escalation logic is validated by unit tests that simulate low-confidence pages and verify correct routing through the strategy chain.
 # DOMAIN_NOTES.md
 
 ## Strategy Decision Tree (Actual Implementation)
