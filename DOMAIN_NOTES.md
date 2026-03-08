@@ -82,6 +82,11 @@ sequenceDiagram
     LDU->>Index: Map LDUs to Spatial Coordinates
     
     Index->>Index: Build Recursive PageIndex Tree
+
+    Index->>QueryAgent: Expose PageIndex Tree
+    QueryAgent->>User: Query, Top-Down Navigation, Semantic Search, FactTable Query
+    QueryAgent->>Auditor: ProvenanceChain, Audit Mode
+    Auditor-->>User: VERIFIED/UNVERIFIABLE with Reasoning
     Index-->>User: Structured Knowledge + Provenance
 
 ---
@@ -92,4 +97,14 @@ sequenceDiagram
 - If confidence < 0.85, escalate to LayoutExtractor.
 - If confidence < 0.40, escalate to VisionExtractor.
 
-*Thresholds and gates are dynamically loaded from rubric/extraction_rules.yaml and can be tuned without code changes.*
+---
+
+## Query Agent & Provenance Layer
+
+- The Query Agent uses a three-tool LangGraph: pageindex_navigate, semantic_search, and structured_query (FactTable).
+- Every answer is returned as a Response(answer, citations, verification_status), with citations as a ProvenanceChain (doc_id, page_number, bbox, content_hash).
+- The ProvenanceChain enables full auditability: every claim can be traced to its source, and the Auditor can verify or refute user claims with binary output (VERIFIED/UNVERIFIABLE + reasoning).
+- FactTable is populated from LDUs and supports structured, temporal queries for financial metrics.
+- The PageIndex tree enables top-down, explainable retrieval and query expansion.
+
+*This architecture ensures every model response is anchored in verifiable, auditable source data, supporting both explainable AI and regulatory compliance.*
