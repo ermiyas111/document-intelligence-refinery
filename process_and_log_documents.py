@@ -65,6 +65,10 @@ def main():
             profile = profile_document(pdf_path)
             profile_dict = profile.model_dump()
             profile_dict['file_name'] = fname
+            # Add extracted text for LDU generation
+            with pdfplumber.open(pdf_path) as pdf:
+                extracted_text = "".join([page.extract_text() or "" for page in pdf.pages])
+            profile_dict['text'] = extracted_text
             profiles.append(profile_dict)
             select_strategy_and_log(profile, fname)
     with open(output_path, 'w', encoding='utf-8') as f:
